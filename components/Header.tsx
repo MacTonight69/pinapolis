@@ -141,19 +141,21 @@ export default function Header() {
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
-                      "relative rounded-full px-4 py-2 text-sm font-semibold transition-colors",
+                      "group relative rounded-full px-4 py-2 text-sm font-semibold transition-colors",
                       isActive
                         ? "text-forest-800"
                         : "text-ink-700 hover:text-forest-700"
                     )}
                   >
                     {link.label}
-                    {/* Indicador de sección actual */}
+                    {/* Indicador de sección actual (y hover) */}
                     <span
                       aria-hidden="true"
                       className={cn(
                         "absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-terra-500 transition-all",
-                        isActive ? "opacity-100" : "opacity-0"
+                        isActive
+                          ? "opacity-100"
+                          : "opacity-0 group-hover:opacity-60"
                       )}
                     />
                   </Link>

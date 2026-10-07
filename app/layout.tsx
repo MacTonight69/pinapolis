@@ -3,6 +3,7 @@ import { business } from "@/data/business";
 import { fontFraunces, fontNunito } from "@/lib/fonts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -87,7 +88,7 @@ export default function RootLayout({
         </a>
         <Header />
         <main id="contenido-principal" tabIndex={-1} className="flex-1 outline-none">
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
       </body>

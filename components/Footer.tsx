@@ -101,7 +101,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cream-200/90 transition-colors hover:text-honey-300"
+                    className="text-cream-200/90 underline-offset-4 transition-colors hover:text-honey-300 hover:underline"
                   >
                     {link.label}
                   </Link>
@@ -120,7 +120,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cream-200/90 transition-colors hover:text-honey-300"
+                    className="text-cream-200/90 underline-offset-4 transition-colors hover:text-honey-300 hover:underline"
                   >
                     {link.label}
                   </Link>

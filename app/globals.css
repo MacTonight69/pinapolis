@@ -77,6 +77,11 @@
   --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-float: float 7s ease-in-out infinite;
 
+  /* Transición entre páginas: entrada del contenido + huevo */
+  --animate-page-enter: page-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-egg-wobble: egg-wobble 0.8s ease-in-out infinite;
+  --animate-egg-shadow: egg-shadow 0.8s ease-in-out infinite;
+
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -89,12 +94,33 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
   }
+  @keyframes page-enter {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  /* El huevo se mece sobre su base, como a punto de eclosionar */
+  @keyframes egg-wobble {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    20% { transform: rotate(-14deg) translateY(-6px); }
+    45% { transform: rotate(12deg) translateY(-8px); }
+    70% { transform: rotate(-7deg) translateY(-3px); }
+    88% { transform: rotate(4deg) translateY(0); }
+  }
+  @keyframes egg-shadow {
+    0%, 100% { transform: scaleX(1); opacity: 1; }
+    20% { transform: scaleX(0.74); opacity: 0.55; }
+    45% { transform: scaleX(0.72); opacity: 0.55; }
+    70% { transform: scaleX(0.9); opacity: 0.8; }
+  }
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
 
 html {
   scroll-behavior: smooth;
+  /* Barra de scroll más fina y con el color del sitio */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-forest-400) var(--color-cream-100);
 }
 
 body {
@@ -135,7 +161,7 @@ body {
   .btn-secondary,
   .btn-outline,
   .btn-terra {
-    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 disabled:opacity-60 disabled:pointer-events-none cursor-pointer;
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 disabled:opacity-60 disabled:pointer-events-none cursor-pointer;
   }
   .btn-primary {
     @apply bg-forest-700 text-cream-50 px-6 py-3 hover:bg-forest-800 hover:shadow-soft active:scale-[0.98];
