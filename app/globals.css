@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+/**
+ * Sistema de diseño de Pinapolis.
+ *
+ * Paleta campestre moderna: verde bosque, oliva, crema,
+ * madera, terracota y amarillo cálido. Tipografía Fraunces
+ * (títulos, carácter editorial) + Nunito Sans (textos).
+ */
+@theme {
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+
+  /* Verde bosque */
+  --color-forest-50: #f2f6ee;
+  --color-forest-100: #e2edda;
+  --color-forest-200: #c6dab6;
+  --color-forest-300: #a3bf8e;
+  --color-forest-400: #7ba066;
+  --color-forest-500: #5d844b;
+  --color-forest-600: #476839;
+  --color-forest-700: #39522e;
+  --color-forest-800: #2c4024;
+  --color-forest-900: #1f2e1a;
+  --color-forest-950: #152012;
+
+  /* Verde oliva */
+  --color-olive-100: #eef0dd;
+  --color-olive-200: #dce1bd;
+  --color-olive-300: #c3cc99;
+  --color-olive-400: #a8b472;
+  --color-olive-500: #8c9a52;
+  --color-olive-600: #717d3e;
+  --color-olive-700: #576130;
+
+  /* Crema / beige / blanco roto */
+  --color-cream-50: #fdfbf4;
+  --color-cream-100: #faf6e9;
+  --color-cream-200: #f3ecd4;
+  --color-cream-300: #e9dcba;
+  --color-cream-400: #dcc591;
+  --color-cream-500: #c9a86b;
+
+  /* Madera */
+  --color-wood-300: #c49b73;
+  --color-wood-400: #a97950;
+  --color-wood-500: #8a5a38;
+  --color-wood-600: #71482a;
+  --color-wood-700: #59381f;
+  --color-wood-800: #422a17;
+
+  /* Terracota */
+  --color-terra-100: #f6e3d8;
+  --color-terra-200: #ecc7b2;
+  --color-terra-300: #e0a98a;
+  --color-terra-400: #cf8660;
+  --color-terra-500: #b96845;
+  --color-terra-600: #9e5234;
+  --color-terra-700: #7f4027;
+
+  /* Amarillo cálido */
+  --color-honey-300: #f2cd7a;
+  --color-honey-400: #eab54e;
+  --color-honey-500: #d99d2b;
+  --color-honey-600: #b87f1f;
+
+  /* Tinta */
+  --color-ink-900: #262a1e;
+  --color-ink-700: #3f4433;
+  --color-ink-500: #5c624d;
+
+  /* Sombras suaves con tono verde */
+  --shadow-soft: 0 2px 10px -2px rgb(31 46 26 / 0.12), 0 8px 30px -12px rgb(31 46 26 / 0.18);
+  --shadow-lift: 0 4px 14px -4px rgb(31 46 26 / 0.16), 0 18px 44px -18px rgb(31 46 26 / 0.28);
+
+  --animate-fade-in: fade-in 0.6s ease-out both;
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream-50 text-ink-900 font-sans antialiased;
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-honey-300);
+  color: var(--color-forest-950);
+}
+
+/**
+ * Clases de componente.
+ *
+ * Van SIEMPRE dentro de `@layer components`: en Tailwind v4 las
+ * capas nativas ordenan la cascada, de modo que cualquier
+ * utilidad (bg-*, px-*, text-*) aplicada en el HTML pisa esta
+ * capa. Sin la capa, estas reglas ganaban por ir sin capa y
+ * rompían combinaciones como `card bg-forest-800`.
+ */
+@layer components {
+  /* Textura de papel sutil para secciones alternas */
+  .texture-paper {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.028 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Grano sobre fotos oscuras (hero) */
+  .texture-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  /* ── Componentes ──────────────────────────────────────────── */
+
+  /* Botones: base compartida + variantes */
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline,
+  .btn-terra {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 disabled:opacity-60 disabled:pointer-events-none cursor-pointer;
+  }
+  .btn-primary {
+    @apply bg-forest-700 text-cream-50 px-6 py-3 hover:bg-forest-800 hover:shadow-soft active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply bg-cream-50/15 text-cream-50 ring-1 ring-cream-50/60 px-6 py-3 backdrop-blur-sm hover:bg-cream-50/25 hover:shadow-soft active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply bg-cream-50 text-forest-800 ring-1 ring-forest-300 px-6 py-3 hover:ring-forest-500 hover:shadow-soft active:scale-[0.98];
+  }
+  /* terra-600: cream-50 sobre terra-500 no llegaba a 4.5:1 (WCAG AA). */
+  .btn-terra {
+    @apply bg-terra-600 text-cream-50 px-6 py-3 hover:bg-terra-700 hover:shadow-soft active:scale-[0.98];
+  }
+
+  /* Tarjetas */
+  .card {
+    @apply rounded-2xl bg-cream-50 ring-1 ring-cream-200 shadow-soft transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1.5 hover:shadow-lift hover:ring-forest-200;
+  }
+
+  /* Etiquetas */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wide uppercase;
+  }
+
+  /* Títulos de sección */
+  .section-title {
+    @apply font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] font-semibold text-forest-950;
+  }
+
+  /* Inputs */
+  .field {
+    @apply w-full rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 text-ink-900 placeholder:text-ink-500/70 transition-colors focus:border-forest-400 focus:ring-2 focus:ring-forest-200 focus:outline-none;
+  }
+  .field-error {
+    @apply border-terra-500 focus:border-terra-500 focus:ring-terra-200;
+  }
+
+  /* Barras de indicadores de raza */
+  .meter-track {
+    @apply h-2 rounded-full bg-cream-200 overflow-hidden;
+  }
+  .meter-fill {
+    @apply h-full rounded-full bg-gradient-to-r from-olive-500 to-forest-600 transition-[width] duration-700 ease-out;
+  }
+}
+
+/* ── Páginas legales ─────────────────────────────────── */
+
+@layer components {
+  .legal-content {
+    @apply text-base;
+  }
+  .legal-content p,
+  .legal-content li {
+    @apply mt-3 leading-relaxed;
+  }
+  .legal-content h2 {
+    @apply mt-9 font-display text-xl font-semibold text-forest-950;
+  }
+  .legal-content ul {
+    @apply mt-3 list-disc space-y-1.5 pl-5;
+  }
+  .legal-content .lead {
+    @apply text-lg font-medium text-ink-900;
+  }
+  .legal-content .last-updated {
+    @apply mt-10 border-t border-cream-300 pt-4 text-sm text-ink-500;
+  }
+}
+
+/* ── Animaciones de aparición (Reveal) ────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respetar prefers-reduced-motion: sin animaciones, todo visible */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Estados de foco consistentes */
+:focus-visible {
+  outline: 2px solid var(--color-forest-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Ocultar visualmente pero accesible para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
